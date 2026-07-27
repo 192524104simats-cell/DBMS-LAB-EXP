@@ -1,0 +1,183 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 22
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE TABLE STUDENT2 (
+    ->     RegNo INT,
+    ->     Name VARCHAR(15),
+    ->     Gender CHAR(1),
+    ->     DOB DATE,
+    ->     MobileNo BIGINT,
+    ->     City VARCHAR(15)
+    -> );
+ERROR 1046 (3D000): No database selected
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| college            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> USE College;
+Database changed
+mysql> ALTER TABLE STUDENT2
+    -> ADD PRIMARY KEY (RegNo);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> SHOW CREATE TABLE STUDENT2;
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table              |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| STUDENT2 | CREATE TABLE `student2` (
+  `RegNo` int NOT NULL,
+  `Name` varchar(15) DEFAULT NULL,
+  `Gender` char(1) DEFAULT NULL,
+  `DOB` date DEFAULT NULL,
+  `MobileNo` bigint DEFAULT NULL,
+  `City` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`RegNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE STUDENT2;
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table              |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| STUDENT2 | CREATE TABLE `student2` (
+  `RegNo` int NOT NULL,
+  `Name` varchar(15) DEFAULT NULL,
+  `Gender` char(1) DEFAULT NULL,
+  `DOB` date DEFAULT NULL,
+  `MobileNo` bigint DEFAULT NULL,
+  `City` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`RegNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> DESC STUDENT2;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| RegNo    | int         | NO   | PRI | NULL    |       |
+| Name     | varchar(15) | YES  |     | NULL    |       |
+| Gender   | char(1)     | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| MobileNo | bigint      | YES  |     | NULL    |       |
+| City     | varchar(15) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE DEPARTMENT
+    -> ADD PRIMARY KEY (DeptNo);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> ALTER TABLE COURSE
+    -> ADD PRIMARY KEY (CourseNo);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COURSE
+    -> ADD CONSTRAINT chk_semno
+    -> CHECK (SemNo IN ('1','2','3','4','5','6'));
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC COURSE;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| CourseNo   | varchar(3)  | NO   | PRI | NULL    |       |
+| CourseDesc | varchar(14) | YES  |     | NULL    |       |
+| CourseType | char(1)     | YES  |     | NULL    |       |
+| SemNo      | char(1)     | YES  |     | NULL    |       |
+| HallNo     | varchar(4)  | YES  |     | NULL    |       |
+| FacNo      | varchar(4)  | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENT2
+    -> ADD UNIQUE (Name);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW CREATE TABLE STUDENT2;
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                            |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| STUDENT2 | CREATE TABLE `student2` (
+  `RegNo` int NOT NULL,
+  `Name` varchar(15) DEFAULT NULL,
+  `Gender` char(1) DEFAULT NULL,
+  `DOB` date DEFAULT NULL,
+  `MobileNo` bigint DEFAULT NULL,
+  `City` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`RegNo`),
+  UNIQUE KEY `Name` (`Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> DESC STUDENT2;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| RegNo    | int         | NO   | PRI | NULL    |       |
+| Name     | varchar(15) | YES  | UNI | NULL    |       |
+| Gender   | char(1)     | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| MobileNo | bigint      | YES  |     | NULL    |       |
+| City     | varchar(15) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE TABLE STUDENT3 (
+    ->     RegNo INT,
+    ->     Name VARCHAR(15),
+    ->     Gender CHAR(1),
+    ->     DOB DATE,
+    ->     MobileNo BIGINT,
+    ->     City VARCHAR(15)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> ALTER TABLE STUDENT3
+    -> ADD CONSTRAINT fk_regno
+    -> FOREIGN KEY (RegNo)
+    -> REFERENCES STUDENT2(RegNo);
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW CREATE TABLE STUDENT3;
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                        |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| STUDENT3 | CREATE TABLE `student3` (
+  `RegNo` int DEFAULT NULL,
+  `Name` varchar(15) DEFAULT NULL,
+  `Gender` char(1) DEFAULT NULL,
+  `DOB` date DEFAULT NULL,
+  `MobileNo` bigint DEFAULT NULL,
+  `City` varchar(15) DEFAULT NULL,
+  KEY `fk_regno` (`RegNo`),
+  CONSTRAINT `fk_regno` FOREIGN KEY (`RegNo`) REFERENCES `student2` (`RegNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql>

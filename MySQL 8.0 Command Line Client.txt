@@ -1,0 +1,274 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 21
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE College;
+ERROR 1007 (HY000): Can't create database 'college'; database exists
+mysql> USE College;
+Database changed
+mysql> CREATE TABLE STUDENT(
+    ->     RegNo INT,
+    ->     Name VARCHAR(15),
+    ->     Gender CHAR(1),
+    ->     DOB DATE,
+    ->     MobileNo BIGINT,
+    ->     City VARCHAR(15)
+    -> );
+ERROR 1050 (42S01): Table 'student' already exists
+mysql> INSERT INTO STUDENT
+    -> VALUES (101,'Harshini','F','2006-05-15',9876543210,'Chennai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO STUDENT
+    -> VALUES (102,'Rahul','M','2005-08-20',9876543211,'Coimbatore');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+mysql> INSERT INTO STUDENT
+    -> VALUES (103,'Priya','F','2006-02-10',9876543212,'Madurai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+mysql> INSERT INTO STUDENT
+    -> VALUES (104,'Arun','M','2005-11-25',9876543213,'Salem');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM STUDENT;
++-------+----------+--------+------------+------------+------------+
+| RegNo | Name     | Gender | DOB        | MobileNo   | City       |
++-------+----------+--------+------------+------------+------------+
+|   101 | Harshini | F      | 2006-05-15 | 9876543210 | Chennai    |
+|   102 | Rahul    | M      | 2005-08-20 | 9876543211 | Coimbatore |
+|   103 | Priya    | F      | 2006-02-10 | 9876543212 | Madurai    |
+|   104 | Arun     | M      | 2005-11-25 | 9876543213 | Salem      |
++-------+----------+--------+------------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE FACULTY (
+    ->     FacNo VARCHAR(4),
+    ->     FacName VARCHAR(15),
+    ->     Gender CHAR(1),
+    ->     DOB DATE,
+    ->     DOJ DATE,
+    ->     MobileNo BIGINT
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_college |
++-------------------+
+| faculty           |
+| student           |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> DESC FACULTY;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| FacNo    | varchar(4)  | YES  |     | NULL    |       |
+| FacName  | varchar(15) | YES  |     | NULL    |       |
+| Gender   | char(1)     | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| DOJ      | date        | YES  |     | NULL    |       |
+| MobileNo | bigint      | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> CREATE TABLE DEPARTMENT (
+    ->     DeptNo VARCHAR(4),
+    ->     DeptName VARCHAR(15),
+    ->     DeptHead VARCHAR(4)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_college |
++-------------------+
+| department        |
+| faculty           |
+| student           |
++-------------------+
+3 rows in set (0.00 sec)
+
+mysql> DESC DEPARTMENT;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| DeptNo   | varchar(4)  | YES  |     | NULL    |       |
+| DeptName | varchar(15) | YES  |     | NULL    |       |
+| DeptHead | varchar(4)  | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> 4) Create a table name COURSE with following structure.
+    ->
+    -> #
+    -> Column
+    -> Name Description Data Type
+    -> 1CourseNo Course Identifier VARCHAR(3)
+    -> 2CourseDesc
+    -> Course
+    -> Description VARCHAR(14)
+    -> 3CourseType Course Type CHAR(1)
+    -> 4SemNo Semester Number CHAR(1)
+    -> 5HallNo Hall Number VARCHAR(4)
+    -> 6FacNo Faculty Identifier VARCHAR(4)
+    ->
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '4) Create a table name COURSE with following structure.
+
+
+Column
+Name Descriptio' at line 1
+mysql> CREATE TABLE COURSE (
+    ->     CourseNo VARCHAR(3),
+    ->     CourseDesc VARCHAR(14),
+    ->     CourseType CHAR(1),
+    ->     SemNo CHAR(1),
+    ->     HallNo VARCHAR(4),
+    ->     FacNo VARCHAR(4)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_college |
++-------------------+
+| course            |
+| department        |
+| faculty           |
+| student           |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> DESC COURSE;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| CourseNo   | varchar(3)  | YES  |     | NULL    |       |
+| CourseDesc | varchar(14) | YES  |     | NULL    |       |
+| CourseType | char(1)     | YES  |     | NULL    |       |
+| SemNo      | char(1)     | YES  |     | NULL    |       |
+| HallNo     | varchar(4)  | YES  |     | NULL    |       |
+| FacNo      | varchar(4)  | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE FACULTY
+    -> ADD Dept VARCHAR(10);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC FACULTY;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| FacNo    | varchar(4)  | YES  |     | NULL    |       |
+| FacName  | varchar(15) | YES  |     | NULL    |       |
+| Gender   | char(1)     | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| DOJ      | date        | YES  |     | NULL    |       |
+| MobileNo | bigint      | YES  |     | NULL    |       |
+| Dept     | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENT2
+    -> ADD PRIMARY KEY (RegNo);
+ERROR 1146 (42S02): Table 'college.student2' doesn't exist
+mysql> CREATE TABLE STUDENT2 (
+    ->     RegNo INT,
+    ->     Name VARCHAR(15),
+    ->     Gender CHAR(1),
+    ->     DOB DATE,
+    ->     MobileNo BIGINT,
+    ->     City VARCHAR(15)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> ALTER TABLE STUDENT2
+    -> ADD PRIMARY KEY (RegNo);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT2;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| RegNo    | int         | NO   | PRI | NULL    |       |
+| Name     | varchar(15) | YES  |     | NULL    |       |
+| Gender   | char(1)     | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| MobileNo | bigint      | YES  |     | NULL    |       |
+| City     | varchar(15) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> PRIMARY KEY (`RegNo`)
+    -> ';
+    '> ;
+    '>
+    '>
+    '>
+    '> );
+    '> ^C
+mysql> ALTER TABLE FACULTY
+    -> ADD PRIMARY KEY (FacNo);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE FACULTY
+    -> ADD CONSTRAINT chk_gender
+    -> CHECK (Gender IN ('M', 'F'));
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW CREATE TABLE FACULTY;
++---------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table    |
++---------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| FACULTY | CREATE TABLE `faculty` (
+  `FacNo` varchar(4) NOT NULL,
+  `FacName` varchar(15) DEFAULT NULL,
+  `Gender` char(1) DEFAULT NULL,
+  `DOB` date DEFAULT NULL,
+  `DOJ` date DEFAULT NULL,
+  `MobileNo` bigint DEFAULT NULL,
+  `Dept` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`FacNo`),
+  CONSTRAINT `chk_gender` CHECK ((`Gender` in (_cp850'M',_cp850'F')))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE DEPARTMENT
+    -> ADD PRIMARY KEY (DeptNo);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW CREATE TABLE DEPARTMENT;
++------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table      | Create Table                                  |
++------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| DEPARTMENT | CREATE TABLE `department` (
+  `DeptNo` varchar(4) NOT NULL,
+  `DeptName` varchar(15) DEFAULT NULL,
+  `DeptHead` varchar(4) DEFAULT NULL,
+  PRIMARY KEY (`DeptNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
