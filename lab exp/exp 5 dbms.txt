@@ -1,0 +1,137 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 27
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use college
+Database changed
+mysql> SELECT RegNo, StudentName, DOB
+    -> FROM STUDENT;
+ERROR 1054 (42S22): Unknown column 'StudentName' in 'field list'
+mysql> DESC STUDENT;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| RegNo    | int         | YES  |     | NULL    |       |
+| Name     | varchar(15) | YES  |     | NULL    |       |
+| Gender   | char(1)     | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| MobileNo | bigint      | YES  |     | NULL    |       |
+| City     | varchar(15) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.04 sec)
+
+mysql> SELECT RegNo, Name, DOB
+    -> FROM STUDENT;
++-------+---------------+------------+
+| RegNo | Name          | DOB        |
++-------+---------------+------------+
+|   101 | Harshini Devi | 2006-05-15 |
+|   102 | Rahul         | 2005-08-20 |
+|   103 | Priya         | 2006-02-10 |
+|   104 | Arun          | 2005-11-25 |
+|   101 | Harshini Devi | 2006-05-15 |
+|   102 | Rahul         | 2005-08-20 |
+|   103 | Priya         | 2006-01-10 |
++-------+---------------+------------+
+7 rows in set (0.01 sec)
+
+mysql> SELECT *
+    -> FROM STUDENT
+    -> WHERE Gender = 'F';
++-------+---------------+--------+------------+------------+---------+
+| RegNo | Name          | Gender | DOB        | MobileNo   | City    |
++-------+---------------+--------+------------+------------+---------+
+|   101 | Harshini Devi | F      | 2006-05-15 | 9876543210 | Chennai |
+|   103 | Priya         | F      | 2006-02-10 | 9876543212 | Madurai |
+|   101 | Harshini Devi | F      | 2006-05-15 | 9876543210 | Chennai |
+|   103 | Priya         | F      | 2006-01-10 | 9876543212 | Madurai |
++-------+---------------+--------+------------+------------+---------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT *
+    -> FROM STUDENT
+    -> WHERE Name LIKE '%sh';
+Empty set (0.01 sec)
+
+mysql> SELECT *
+    -> FROM STUDENT
+    -> WHERE Name LIKE '%sh%';
++-------+---------------+--------+------------+------------+---------+
+| RegNo | Name          | Gender | DOB        | MobileNo   | City    |
++-------+---------------+--------+------------+------------+---------+
+|   101 | Harshini Devi | F      | 2006-05-15 | 9876543210 | Chennai |
+|   101 | Harshini Devi | F      | 2006-05-15 | 9876543210 | Chennai |
++-------+---------------+--------+------------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM STUDENT
+    -> WHERE City LIKE '%Sal%';
++-------+------+--------+------------+------------+-------+
+| RegNo | Name | Gender | DOB        | MobileNo   | City  |
++-------+------+--------+------------+------------+-------+
+|   104 | Arun | M      | 2005-11-25 | 9876543213 | Salem |
++-------+------+--------+------------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM STUDENT
+    -> WHERE Name NOT LIKE '______';
++-------+---------------+--------+------------+------------+------------+
+| RegNo | Name          | Gender | DOB        | MobileNo   | City       |
++-------+---------------+--------+------------+------------+------------+
+|   101 | Harshini Devi | F      | 2006-05-15 | 9876543210 | Chennai    |
+|   102 | Rahul         | M      | 2005-08-20 | 9876543211 | Coimbatore |
+|   103 | Priya         | F      | 2006-02-10 | 9876543212 | Madurai    |
+|   104 | Arun          | M      | 2005-11-25 | 9876543213 | Salem      |
+|   101 | Harshini Devi | F      | 2006-05-15 | 9876543210 | Chennai    |
+|   102 | Rahul         | M      | 2005-08-20 | 9876543211 | Coimbatore |
+|   103 | Priya         | F      | 2006-01-10 | 9876543212 | Madurai    |
++-------+---------------+--------+------------+------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM STUDENT
+    -> WHERE Name LIKE '%am%';
+Empty set (0.00 sec)
+
+mysql> DESC COURSE_REGISTRATION;
+ERROR 1146 (42S02): Table 'college.course_registration' doesn't exist
+mysql> DESC FACULTY;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| FacNo    | varchar(4)  | NO   | PRI | NULL    |       |
+| FacName  | varchar(15) | YES  |     | NULL    |       |
+| Gender   | char(1)     | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| DOJ      | date        | YES  |     | NULL    |       |
+| MobileNo | bigint      | YES  |     | NULL    |       |
+| Dept     | varchar(10) | YES  |     | NULL    |       |
+| Age      | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> DESC COURSE;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| CourseNo   | varchar(3)  | NO   | PRI | NULL    |       |
+| CourseDesc | varchar(14) | YES  |     | NULL    |       |
+| CourseType | char(1)     | YES  |     | NULL    |       |
+| SemNo      | char(1)     | YES  |     | NULL    |       |
+| HallNo     | varchar(4)  | YES  |     | NULL    |       |
+| FacNo      | varchar(4)  | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql>
