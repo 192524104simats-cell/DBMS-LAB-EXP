@@ -1,0 +1,235 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 34
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use college
+Database changed
+mysql> CREATE TABLE DBMS_Stud(
+    -> Reg_No INT UNSIGNED NOT NULL AUTO_INCREMENT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> CREATE TABLE DBMS_Stud(
+    -> Reg_No INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    -> Name VARCHAR(30)NOT NULL,
+    -> Department VARCHAR (30) NOT NULL,
+    -> Mark INT(30) NOT NULL
+    -> );
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> CREATE TABLE DBMS_Stud(
+    -> Reg_No INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    -> PRIMARY KEY (Reg_No),
+    -> Name VARCHAR(30)NOT NULL,
+    -> Department VARCHAR (30) NOT NULL,
+    -> Mark INT(30) NOT NULL
+    -> );
+Query OK, 0 rows affected, 1 warning (0.11 sec)
+
+mysql> desc DBMS_Stud
+    -> ;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| Reg_No     | int unsigned | NO   | PRI | NULL    | auto_increment |
+| Name       | varchar(30)  | NO   |     | NULL    |                |
+| Department | varchar(30)  | NO   |     | NULL    |                |
+| Mark       | int          | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO DBMS_Stud(Name,Department,Mark)VALUES
+    -> ('Raj','CSE',89),
+    -> ('Rajesh','CSE',88),
+    -> ('Ramesh','ECE',90),
+    -> ('Rajan','ECE',85);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from DBMS_Stud;
++--------+--------+------------+------+
+| Reg_No | Name   | Department | Mark |
++--------+--------+------------+------+
+|      1 | Raj    | CSE        |   89 |
+|      2 | Rajesh | CSE        |   88 |
+|      3 | Ramesh | ECE        |   90 |
+|      4 | Rajan  | ECE        |   85 |
++--------+--------+------------+------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO DBMS_Stud(Reg_No,Name,Department,Mark)VALUES
+    -> (10,'Aarthi','CSE',89),
+    -> (12,'Anu','CSE',88),
+    -> (11,'Anbu','ECE',90);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from DBMS_Stud;
++--------+--------+------------+------+
+| Reg_No | Name   | Department | Mark |
++--------+--------+------------+------+
+|      1 | Raj    | CSE        |   89 |
+|      2 | Rajesh | CSE        |   88 |
+|      3 | Ramesh | ECE        |   90 |
+|      4 | Rajan  | ECE        |   85 |
+|     10 | Aarthi | CSE        |   89 |
+|     11 | Anbu   | ECE        |   90 |
+|     12 | Anu    | CSE        |   88 |
++--------+--------+------------+------+
+7 rows in set (0.00 sec)
+
+mysql> INSERT INTO DBMS_Stud(Name,Department,Mark)VALUES
+    -> ('abc','CSE',89),
+    -> ('xyz','CSE',88);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from DBMS_Stud;
++--------+--------+------------+------+
+| Reg_No | Name   | Department | Mark |
++--------+--------+------------+------+
+|      1 | Raj    | CSE        |   89 |
+|      2 | Rajesh | CSE        |   88 |
+|      3 | Ramesh | ECE        |   90 |
+|      4 | Rajan  | ECE        |   85 |
+|     10 | Aarthi | CSE        |   89 |
+|     11 | Anbu   | ECE        |   90 |
+|     12 | Anu    | CSE        |   88 |
+|     13 | abc    | CSE        |   89 |
+|     14 | xyz    | CSE        |   88 |
++--------+--------+------------+------+
+9 rows in set (0.00 sec)
+
+mysql> INSERT INTO DBMS_Stud(Reg_No,Name,Department,Mark)VALUES
+    -> ('AAAAA','CSE',89),
+    -> ('BBBBB','ECE',88)
+    -> ,
+    -> ('CCCCCC','ECE',88);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> ('AAAAA','CSE',89),
+    -> ('BBBBB','ECE',88),
+    -> ('CCCCC','ECE',88);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''AAAAA','CSE',89),
+('BBBBB','ECE',88),
+('CCCCC','ECE',88)' at line 1
+mysql> INSERT INTO DBMS_Stud(Reg_No,Name,Department,Mark)VALUES
+    -> ('AAAAA','CSE',89),
+    -> ('BBBBB','ECE',88),
+    -> ('CCCCC','ECE',88);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO DBMS_Stud(Name,Department,Mark)VALUES
+    -> ('AAAAA','CSE',89),
+    -> ('BBBBB','ECE',88),
+    -> ('CCCCC','ECE',88);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from DBMS_Stud;
++--------+--------+------------+------+
+| Reg_No | Name   | Department | Mark |
++--------+--------+------------+------+
+|      1 | Raj    | CSE        |   89 |
+|      2 | Rajesh | CSE        |   88 |
+|      3 | Ramesh | ECE        |   90 |
+|      4 | Rajan  | ECE        |   85 |
+|     10 | Aarthi | CSE        |   89 |
+|     11 | Anbu   | ECE        |   90 |
+|     12 | Anu    | CSE        |   88 |
+|     13 | abc    | CSE        |   89 |
+|     14 | xyz    | CSE        |   88 |
+|     15 | AAAAA  | CSE        |   89 |
+|     16 | BBBBB  | ECE        |   88 |
+|     17 | CCCCC  | ECE        |   88 |
++--------+--------+------------+------+
+12 rows in set (0.00 sec)
+
+mysql> ALTER TABLE DBMS_Stud AUTO INCREMENT = 50;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AUTO INCREMENT = 50' at line 1
+mysql> ALTER TABLE DBMS_Stud AUTO_INCREMENT = 50;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO DBMS_Stud(Name,Department,Mark)VALUES
+    -> ('DD','CSE',89),
+    -> ('EE','ECE',88),
+    -> ('FF','ECE',88);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from DBMS_Stud;
++--------+--------+------------+------+
+| Reg_No | Name   | Department | Mark |
++--------+--------+------------+------+
+|      1 | Raj    | CSE        |   89 |
+|      2 | Rajesh | CSE        |   88 |
+|      3 | Ramesh | ECE        |   90 |
+|      4 | Rajan  | ECE        |   85 |
+|     10 | Aarthi | CSE        |   89 |
+|     11 | Anbu   | ECE        |   90 |
+|     12 | Anu    | CSE        |   88 |
+|     13 | abc    | CSE        |   89 |
+|     14 | xyz    | CSE        |   88 |
+|     15 | AAAAA  | CSE        |   89 |
+|     16 | BBBBB  | ECE        |   88 |
+|     17 | CCCCC  | ECE        |   88 |
+|     50 | DD     | CSE        |   89 |
+|     51 | EE     | ECE        |   88 |
+|     52 | FF     | ECE        |   88 |
++--------+--------+------------+------+
+15 rows in set (0.00 sec)
+
+mysql> ALTER TABLE DBMS_Stud DROP Reg_No;
+Query OK, 15 rows affected (0.09 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO DBMS_Stud(Name,Department,Mark)VALUES
+    -> ('gggg','CSE',89),
+    -> ('hhhh','ECE',88);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from DBMS_Stud;
++--------+------------+------+
+| Name   | Department | Mark |
++--------+------------+------+
+| Raj    | CSE        |   89 |
+| Rajesh | CSE        |   88 |
+| Ramesh | ECE        |   90 |
+| Rajan  | ECE        |   85 |
+| Aarthi | CSE        |   89 |
+| Anbu   | ECE        |   90 |
+| Anu    | CSE        |   88 |
+| abc    | CSE        |   89 |
+| xyz    | CSE        |   88 |
+| AAAAA  | CSE        |   89 |
+| BBBBB  | ECE        |   88 |
+| CCCCC  | ECE        |   88 |
+| DD     | CSE        |   89 |
+| EE     | ECE        |   88 |
+| FF     | ECE        |   88 |
+| gggg   | CSE        |   89 |
+| hhhh   | ECE        |   88 |
++--------+------------+------+
+17 rows in set (0.00 sec)
+
+mysql> INSERT INTO DBMS_Stud(Reg_No,Name,Department,Mark)VALUES
+    -> (111,'yy','CSE',89),
+    -> (222,'zz','ECE',88);
+ERROR 1054 (42S22): Unknown column 'Reg_No' in 'field list'
+mysql> desc DBMS_Stud;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Name       | varchar(30) | NO   |     | NULL    |       |
+| Department | varchar(30) | NO   |     | NULL    |       |
+| Mark       | int         | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
